@@ -56,22 +56,12 @@ const data = [
   },
 ];
 
-const calculateResult = (markSheets) => {
-  const subject = markSheets.map((mark)=> {
-  const result = (mark.tamil  >= 35 && mark.english >= 35 && mark.science >= 35 && mark.maths >= 35 && mark.social >= 35) ? 'Pass' : 'Fail';
-   
-    return ({...mark , result : result});
-  });
-
-  return subject ;
-}
-
 const calculateTotal = (markSheets) => {
   const sum = markSheets.map((markSheet) => {
     const total = markSheet.tamil + markSheet.english + markSheet.science + markSheet.maths + markSheet.social;
-    const result = Math.min(markSheet.tamil , markSheet.english , markSheet.science , markSheet.maths , markSheet.social)>=35 ? 'Pass' : 'Fail';
-  
-    return ({ ...markSheet, total: total, result : result});
+    const result = Math.min(markSheet.tamil, markSheet.english, markSheet.science, markSheet.maths, markSheet.social) >= 35 ? 'Pass' : 'Fail';
+
+    return ({ ...markSheet, total: total, result: result });
   });
 
   return sum;
@@ -79,7 +69,6 @@ const calculateTotal = (markSheets) => {
 
 const main = () => {
   console.table(calculateTotal(data));
-  console.table(calculateResult(data));
 };
 
 main();
