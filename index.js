@@ -69,8 +69,9 @@ const calculateResult = (markSheets) => {
 const calculateTotal = (markSheets) => {
   const sum = markSheets.map((markSheet) => {
     const total = markSheet.tamil + markSheet.english + markSheet.science + markSheet.maths + markSheet.social;
+    const result = Math.min(markSheet.tamil , markSheet.english , markSheet.science , markSheet.maths , markSheet.social)>=35 ? 'Pass' : 'Fail';
   
-    return ({ ...markSheet, total: total});
+    return ({ ...markSheet, total: total, result : result});
   });
 
   return sum;
