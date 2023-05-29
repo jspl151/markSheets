@@ -56,6 +56,17 @@ const data = [
   },
 ];
 
+
+/*const calculateResult = (markSheets) => {
+  const subject = markSheets.map((mark) => {
+    const result = (mark.tamil >= 35 && mark.english >= 35 && mark.science >= 35 && mark.maths >= 35 && mark.social >= 35) ? 'Pass' : 'Fail';
+
+    return ({ ...mark, result: result });
+  });
+
+  return subject;
+}
+*/
 const calculateTotal = (markSheets) => {
   const sum = markSheets.map((markSheet) => {
     const total = markSheet.tamil + markSheet.english + markSheet.science + markSheet.maths + markSheet.social;
@@ -67,8 +78,18 @@ const calculateTotal = (markSheets) => {
   return sum;
 }
 
+const sort = (calculateTotal) => {
+  const getsort = calculateTotal.sort((a, b) => b.total - a.total);
+  return getsort ;
+
+}
+
+
 const main = () => {
-  console.table(calculateTotal(data));
+  const totalMarks = calculateTotal(data);
+  //console.table(calculateResult(data));
+  const sortedtotal = sort(totalMarks);
+  console.table(sortedtotal);
 };
 
 main();
