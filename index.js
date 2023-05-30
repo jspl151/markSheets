@@ -94,12 +94,11 @@ const addRank = (sortedList) => {
 
 const getCount = (rankedList) => {
   const count = rankedList.reduce((acc,markSheet)=>
-    {
-   markSheet.result === 'pass' ? acc.pass+=1 : acc.fail+=1 ;
-    
-      return acc;
-      
-    }, {pass : 0 , fail:0});
+    ({
+    ...acc, 
+    pass: markSheet.result === 'pass' ? acc.pass+1 : acc.pass,
+    fail : markSheet.result === 'fail' ? acc.fail+1 : acc.fail
+    }),{pass : 0 , fail:0});
   
   return count;
 };
@@ -108,7 +107,6 @@ const main = () => {
   const studentDataList = data.map(addFields);
   const sortedList = sortByTotal(studentDataList);
   const rankedList = addRank(sortedList);
-  const passCount = getCount(rankedList);
   console.table(rankedList);
   console.log(getCount(rankedList));
 };
