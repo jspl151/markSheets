@@ -69,7 +69,7 @@ const data = [
 */
 const getTotal = (markSheet) => markSheet.tamil + markSheet.english + markSheet.science + markSheet.maths + markSheet.social;
 
-const getResult = (markSheet) => Math.min(markSheet.tamil, markSheet.english, markSheet.science, markSheet.maths, markSheet.social) >= 35 ? 'Pass' : 'Fail';
+const getResult = (markSheet) => Math.min(markSheet.tamil, markSheet.english, markSheet.science, markSheet.maths, markSheet.social) >= 35 ? 'pass' : 'fail';
 
 const addFields = (markSheet) => ({
   ...markSheet , 
@@ -77,7 +77,7 @@ const addFields = (markSheet) => ({
   result : getResult(markSheet)
 });
 
-const sortTotal = (markSheets) => {
+const sortByTotal = (markSheets) => {
   const sortedList = markSheets.sort((a, b) => b.total - a.total);
 
   return sortedList;
@@ -87,20 +87,30 @@ const addRank = (sortedList) => {
    let rank=0;
   const rankedList = sortedList.map((student) => ({
   ...student , 
-  rank : student.result === 'Pass' ? rank+=1 : '-' 
+  rank : student.result === 'pass' ? rank+=1 : '-' 
   }));
   return rankedList ;
 }
 
-const getCount = (rankedList) = > {
+const getCount = (rankedList) => {
+  const count = rankedList.reduce((acc,markSheet)=>
+    {
+   markSheet.result === 'pass' ? acc.pass+=1 : acc.fail+=1 ;
+    
+      return acc;
+      
+    }, {pass : 0 , fail:0});
   
-}
+  return count;
+};
   
 const main = () => {
   const studentDataList = data.map(addFields);
-  const sortedtotal = sortTotal(studentDataList);
-  const rankedList = addRank(sortedtotal);
+  const sortedList = sortByTotal(studentDataList);
+  const rankedList = addRank(sortedList);
+  const passCount = getCount(rankedList);
   console.table(rankedList);
+  console.log(getCount(rankedList));
 };
 
 main();
