@@ -84,24 +84,23 @@ const sortByTotal = (markSheets) => {
 }
 
 const addRank = (sortedList) => {
-   let rank=0;
-  const rankedList = sortedList.map((student) => ({
-  ...student , 
-  rank : student.result === 'pass' ? rank+=1 : '-' 
+  const rankedList = sortedList.map((student,index,array) => 
+  ({
+  ...student ,
+  rank : student.result === 'pass'
+  ? array.filter((value) => (value.total > student.total)).length+1
+  : '-'
   }));
+  
   return rankedList ;
-}
+};
 
-const getCount = (rankedList) => {
-  const count = rankedList.reduce((acc,markSheet)=>
+const getCount = (rankedList) => rankedList.reduce((acc,markSheet)=>
     ({
     ...acc, 
     pass: markSheet.result === 'pass' ? acc.pass+1 : acc.pass,
     fail : markSheet.result === 'fail' ? acc.fail+1 : acc.fail
     }),{pass : 0 , fail:0});
-  
-  return count;
-};
   
 const main = () => {
   const studentDataList = data.map(addFields);
