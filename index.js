@@ -56,17 +56,6 @@ const data = [
   },
 ];
 
-
-/*const calculateResult = (markSheets) => {
-  const subject = markSheets.map((mark) => {
-    const result = (mark.tamil >= 35 && mark.english >= 35 && mark.science >= 35 && mark.maths >= 35 && mark.social >= 35) ? 'Pass' : 'Fail';
-
-    return ({ ...mark, result: result });
-  });
-
-  return subject;
-}
-*/
 const getTotal = (markSheet) => markSheet.tamil + markSheet.english + markSheet.science + markSheet.maths + markSheet.social;
 
 const getResult = (markSheet) => Math.min(markSheet.tamil, markSheet.english, markSheet.science, markSheet.maths, markSheet.social) >= 35 ? 'pass' : 'fail';
@@ -87,8 +76,8 @@ const addRank = (sortedList) => {
   const rankedList = sortedList.map((student,index,array) => 
   ({
   ...student ,
-  rank : student.result === 'pass'
-  ? array.filter((value) => (value.total > student.total)).length+1
+  rank : (student.result === 'pass')
+  ? array.filter((value) => ((value.result === 'pass') && (value.total > student.total))).length+1
   : '-'
   }));
   
